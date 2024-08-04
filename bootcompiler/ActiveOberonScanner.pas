@@ -8,6 +8,9 @@ uses
 
 const   
 
+    (* scanner constants *)
+	EOT = $0; LF = $0A; CR = $0D; TAB = $09;
+
     (* Symbols used between scanner and parser *)
     Symb_None = 0;
     Symb_Equal = 1; Symb_DotEqual = 2; Symb_Unequal = 3; Symb_DotUnequal = 4; Symb_Less = 5; Symb_DotLess = 6;
@@ -33,29 +36,60 @@ const
     Symb_Array = 96; Symb_Object = 97; Symb_Record = 98; Symb_Pointer = 99; Symb_Enum = 100; Symb_Port = 101;
     Symb_Address = 102; Symb_Size = 103; Symb_Alias = 104;
 
+    (* Number types *)
+    Shortint = 108; Integer = 109; Longint = 110; Hugeint = 111; Real = 112; Longreal = 113; 
+	Comment = 114; EndOfText = 115; 
+
 type
+
+    Token = Int64; (* Symbol Code *)
+
+    (* Symbol: Data structure for transfer of data between scanner and parser *)
+    Symbol = record 
+        _start, _end, _line: Int64; 
+        _symbol: Token;
+        _identifier: string;
+        _string: string;
+        _stringLength: Int64;
+        _numberType: Int64;
+        _integer: Int64;
+        _hugeint: Int64;
+        _character: char;
+        _real: Double;
+    end;
+
 
     TKeywordObject = class
         Name: string;
-        Symbol: integer;
-        constructor Create(AName: string; symb: integer);
+        Symbol: Token;
+        constructor Create(AName: string; symb: Token);
     end;
 
     TScannerObject = class
         Keywords: TFPHashObjectList;
-        constructor Create();
+        constructor Create(fileName: string);
         destructor Done();
+
+        procedure GetNextCharacter;
     end;
+
+var
+
+    reader: file of char;
+
+    ch: char;
+    position: Int64;
+    line: Int64;
 
 implementation
 
-    constructor TKeywordObject.Create(AName: string; symb: integer);
+    constructor TKeywordObject.Create(AName: string; symb: Token);
     begin
     Name := AName;
     Symbol := symb;
     end;
 
-    constructor TScannerObject.Create();
+    constructor TScannerObject.Create(fileName: string);
     begin
         (* Initialize reserved keyword table *)
         Keywords := TFPHashObjectList.Create(True);
@@ -113,11 +147,31 @@ implementation
         Keywords.Add('address', TKeywordObject.Create('address', Symb_Cellnet));
         Keywords.Add('size', TKeywordObject.Create('size', Symb_Cellnet));
         Keywords.Add('alias', TKeywordObject.Create('alias', Symb_Cellnet));
+
+        Assign(reader, fileName);
+        Reset(reader);
     end;
 
     destructor TScannerObject.Done();
     begin
        Keywords.Free();
+       Close(reader);
+    end;
+
+    procedure TScannerObject.GetNextCharacter;
+    var
+        pos: Int64;
+    begin
+        Read(reader, ch);
+        if ch = '\n' then inc(line);
+        if ch = '\r' then
+            begin
+                pos := FilePos(reader);
+                Read(reader, ch);
+                if ch <> '\n' then 
+                    Seek(reader, pos);
+                inc(line);
+            end;
     end;
 
 end.
