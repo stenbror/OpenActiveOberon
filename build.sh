@@ -1,4 +1,4 @@
 #!/bin/sh
 
-fpc -Mobjfpc bootcompiler/aoc.pp -oaoc_bootstrap
+fpc -Mobjfpc bootcompiler/aoc.pas -oaoc_bootstrap
 mv ./bootcompiler/aoc_bootstrap ./bin
