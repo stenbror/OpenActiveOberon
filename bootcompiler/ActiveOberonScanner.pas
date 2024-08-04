@@ -71,6 +71,7 @@ type
         destructor Done();
 
         procedure GetNextCharacter;
+        procedure GetNextSymbol(var symbol: Symbol; var error: Boolean);
     end;
 
 var
@@ -158,6 +159,7 @@ implementation
        Close(reader);
     end;
 
+    (* Get next character from file and handle line shift *)
     procedure TScannerObject.GetNextCharacter;
     var
         pos: Int64;
@@ -172,6 +174,58 @@ implementation
                     Seek(reader, pos);
                 inc(line);
             end;
+    end;
+
+    (* Get next symbol for parser *)
+    procedure TScannerObject.GetNextSymbol(var symbol: Symbol; var error: Boolean);
+    VAR 
+        s, token: Int64;
+    begin
+
+
+        symbol._start := position; symbol._line := line;
+        
+        case ch of
+           '#' :   begin s := Symb_Unequal; GetNextCharacter; end;
+           '&' :   begin s := Symb_And; GetNextCharacter; end;
+           '(' :   begin 
+                        GetNextCharacter;   
+                        if ch = '*' then begin
+                            // Handle comment
+                            s := Comment;
+                        end
+                        else
+                            s := Symb_LeftParenthesis;
+                    end;
+            ')' :   begin s := Symb_RightParenthesis; GetNextCharacter; end;
+            '*' :   begin GetNextCharacter; if ch = '*' then begin GetNextCharacter; s := Symb_TimesTimes; end else s := Symb_Times; end;
+            '+' :   begin GetNextCharacter; if ch = '*' then begin GetNextCharacter; s := Symb_PlusTimes; end else s := Symb_Plus; end;
+            ',' :   begin s := Symb_Comma; GetNextCharacter; end;
+            '-' :   begin s := Symb_Minus; GetNextCharacter; end;
+            '.' :   begin 
+                        if ch = '.' then begin GetNextCharacter; s := Symb_Upto; end
+                        else if ch = '*' then begin GetNextCharacter; s := Symb_DotTimes; end
+                        else if ch = '/' then begin GetNextCharacter; s := Symb_DotSlash; end
+                        else if ch = '=' then begin GetNextCharacter; s := Symb_DotEqual; end
+                        else if ch = '#' then begin GetNextCharacter; s := Symb_DotUnequal; end
+                        else if ch = '>' then begin 
+                            GetNextCharacter;
+                            if ch = '=' then begin GetNextCharacter; s := Symb_DotGreaterEqual; end
+                            else s := Symb_DotGreater;
+                        end
+                        else if ch = '<' then begin 
+                            GetNextCharacter;
+                            if ch = '=' then begin GetNextCharacter; s := Symb_DotLessEqual; end
+                            else s := Symb_DotLess;
+                        end
+                        else begin s := Symb_Period; end;
+                    end;
+
+
+        else s := Symb_None;
+        end;
+
+        symbol._symbol := s;
     end;
 
 end.
