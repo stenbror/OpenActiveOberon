@@ -1,7 +1,7 @@
 program test;
 
 uses
-   ActiveOberonScanner, ActiveOberonParser;
+   crt, ActiveOberonScanner, ActiveOberonParser;
 
    var 
       scanner: TScannerObject;
@@ -9,19 +9,26 @@ uses
       error: Boolean;
 
 begin
-Writeln();
-Writeln(' Active Oberon (2019 Version), version 0.1.0 [Build: 20240804]');
-Writeln('');
 
-scanner := TScannerObject.Create('/home/stenbror/OpenActiveOberon/bin/test.pas');
+   (* Compiler header *)
+   Writeln();
+   TextColor(LightGreen);
+   Write(' Active Oberon (2019 Version)');
+   NormVideo;
+   Writeln(', version 0.1.0 [Build: 20240804]');
+   Writeln('');
 
-if scanner = nil then Writeln('NIL!'); 
-scanner.GetNextSymbol(symbol, error);
 
-Write('Symbol:  '); Writeln(symbol._symbol);
+   (* Test code . Temporary *)
+   scanner := TScannerObject.Create('/home/stenbror/OpenActiveOberon/bin/test.pas');
 
-scanner.GetNextSymbol(symbol, error);
+   if scanner = nil then Writeln('NIL!'); 
+   scanner.GetNextSymbol(symbol, error);
 
-Write('Symbol:  '); Writeln(symbol._symbol);
+   Write('Symbol:  '); Writeln(symbol._symbol);
+
+   scanner.GetNextSymbol(symbol, error);
+
+   Write('Symbol:  '); Writeln(symbol._symbol);
 
 end.
