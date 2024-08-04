@@ -1,6 +1,6 @@
 # Active Oberon Native Compiler (Version 2019)
 
-This is the start of  a open active oberon compiler for Windows, Linux and Max. First supporting ARMN AA64ARCh binary code and inline assembler. We have started on the bootstrap compiler written in object pascal that will be used to compile the final compiler written nativly in Active Oberon.
+This is the start of  a open active oberon compiler for Windows, Linux and Mac. First supporting *ARM aarch64* binary code and inline assembler. We have started on the bootstrap compiler written in object pascal that will be used to compile the final compiler written nativly in Active Oberon.
 
 The transition from Pascal version to Active Oberon version will be mostly minor.
 
