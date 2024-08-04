@@ -57,6 +57,7 @@ implementation
 
     constructor TScannerObject.Create();
     begin
+        (* Initialize reserved keyword table *)
         Keywords := TFPHashObjectList.Create(True);
         Keywords.Add('cell', TKeywordObject.Create('cell', Symb_Cell));
         Keywords.Add('cellnet', TKeywordObject.Create('cellnet', Symb_Cellnet));
