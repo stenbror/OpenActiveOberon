@@ -1,0 +1,3 @@
+bootcompiler/*.o
+bootcompiler/*.ppu
+bin
