@@ -184,7 +184,7 @@ implementation
 
 
         symbol._start := position; symbol._line := line;
-        
+
         case ch of
            '#' :   begin s := Symb_Unequal; GetNextCharacter; end;
            '&' :   begin s := Symb_And; GetNextCharacter; end;
@@ -202,6 +202,7 @@ implementation
             '+' :   begin GetNextCharacter; if ch = '*' then begin GetNextCharacter; s := Symb_PlusTimes; end else s := Symb_Plus; end;
             ',' :   begin s := Symb_Comma; GetNextCharacter; end;
             '-' :   begin s := Symb_Minus; GetNextCharacter; end;
+            ';' :   begin s := Symb_Semicolon; GetNextCharacter; end;
             '.' :   begin 
                         if ch = '.' then begin GetNextCharacter; s := Symb_Upto; end
                         else if ch = '*' then begin GetNextCharacter; s := Symb_DotTimes; end
@@ -219,6 +220,33 @@ implementation
                             else s := Symb_DotLess;
                         end
                         else begin s := Symb_Period; end;
+                    end;
+            '/' :   begin s := Symb_Slash; GetNextCharacter; end;
+            ':' :   begin GetNextCharacter; if ch = '=' then begin GetNextCharacter; s := Symb_Becomes; end else s := Symb_Colon; end;
+            '=' :   begin s := Symb_Equal; GetNextCharacter; end;
+            '<' :   begin 
+                        if ch = '=' then begin GetNextCharacter; s := Symb_LessEqual end
+                        else if ch = '<' then begin
+                            GetNextCharacter;
+                            if ch = '?' then begin 
+                                GetNextCharacter;
+                                s := Symb_LessLessQ;
+                            end
+                            else s := Symb_LessLess;
+                        end
+                        else s := Symb_Less;
+                    end;
+            '>' :   begin 
+                        if ch = '=' then begin GetNextCharacter; s := Symb_GreaterEqual end
+                        else if ch = '>' then begin
+                            GetNextCharacter;
+                            if ch = '?' then begin 
+                                GetNextCharacter;
+                                s := Symb_GreaterGreaterQ;
+                            end
+                            else s := Symb_GreaterGreater;
+                        end
+                        else s := Symb_Less;
                     end;
 
 
