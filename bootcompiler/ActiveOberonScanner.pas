@@ -71,6 +71,7 @@ type
         destructor Done();
 
         procedure GetNextCharacter;
+        procedure SkipBlanks;
         procedure GetNextSymbol(var symbol: Symbol; var error: Boolean);
     end;
 
@@ -176,19 +177,28 @@ implementation
             end;
     end;
 
+    procedure TScannerObject.SkipBlanks;
+    begin
+        while  (ch <= ' ') and (ch <> '\0') do
+        begin
+            GetNextCharacter;
+        end
+    end;
+
     (* Get next symbol for parser *)
     procedure TScannerObject.GetNextSymbol(var symbol: Symbol; var error: Boolean);
     VAR 
         s, token: Int64;
+
     begin
-
-
+        
+        SkipBlanks;
         symbol._start := position; symbol._line := line;
 
         case ch of
-           '#' :   begin s := Symb_Unequal; GetNextCharacter; end;
-           '&' :   begin s := Symb_And; GetNextCharacter; end;
-           '(' :   begin 
+        '#' :   begin s := Symb_Unequal; GetNextCharacter; end;
+        '&' :   begin s := Symb_And; GetNextCharacter; end;
+        '(' :   begin 
                         GetNextCharacter;   
                         if ch = '*' then begin
                             // Handle comment
@@ -248,12 +258,26 @@ implementation
                         end
                         else s := Symb_Less;
                     end;
+            '[' :   begin s := Symb_LeftBracket; GetNextCharacter; end;
+            ']' :   begin s := Symb_RightBracket; GetNextCharacter; end;
+            '{' :   begin s := Symb_LeftBrace; GetNextCharacter; end;
+            '}' :   begin s := Symb_RightBrace; GetNextCharacter; end;
+            '|' :   begin s := Symb_Bar; GetNextCharacter; end;
+            '^' :   begin s := Symb_Arrow; GetNextCharacter; end;
+            '~' :   begin s := Symb_Not; GetNextCharacter; end;
+            '`' :   begin s := Symb_Transpose; GetNextCharacter; end;
+            '!' :   begin GetNextCharacter; if ch = '!' then begin GetNextCharacter; s := Symb_ExclamationMarks; end else s := Symb_ExclamationMark; end;
+            '?' :   begin GetNextCharacter; if ch = '?' then begin GetNextCharacter; s := Symb_Questionmarks; end else s := Symb_Questionmark; end;
+            'A' .. 'Z' :    begin end;
+            'a' .. 'z' :    begin end;
+            '0' .. '9' :    begin end;
 
 
         else s := Symb_None;
         end;
 
         symbol._symbol := s;
+        symbol._end := position;
     end;
 
 end.
