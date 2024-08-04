@@ -93,7 +93,8 @@ implementation
 
     constructor TScannerObject.Create(fileName: string);
     begin
-        (* Initialize reserved keyword table *)
+
+        (* Initialize reserved keyword table *) 
         Keywords := TFPHashObjectList.Create(True);
         Keywords.Add('cell', TKeywordObject.Create('cell', Symb_Cell));
         Keywords.Add('cellnet', TKeywordObject.Create('cellnet', Symb_Cellnet));
@@ -151,7 +152,7 @@ implementation
         Keywords.Add('alias', TKeywordObject.Create('alias', Symb_Cellnet));
 
         Assign(reader, fileName);
-        Reset(reader);
+        Reset(reader); 
     end;
 
     destructor TScannerObject.Done();
@@ -235,6 +236,7 @@ implementation
             ':' :   begin GetNextCharacter; if ch = '=' then begin GetNextCharacter; s := Symb_Becomes; end else s := Symb_Colon; end;
             '=' :   begin s := Symb_Equal; GetNextCharacter; end;
             '<' :   begin 
+                        GetNextCharacter;
                         if ch = '=' then begin GetNextCharacter; s := Symb_LessEqual end
                         else if ch = '<' then begin
                             GetNextCharacter;
@@ -247,6 +249,7 @@ implementation
                         else s := Symb_Less;
                     end;
             '>' :   begin 
+                        GetNextCharacter();
                         if ch = '=' then begin GetNextCharacter; s := Symb_GreaterEqual end
                         else if ch = '>' then begin
                             GetNextCharacter;
