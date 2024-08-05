@@ -207,7 +207,7 @@ implementation
                 symbol._identifier[i] := ch; GetNextCharacter;
                 if i = MaxIdentifierLength then exit 
             end;
-        symbol._identifier[i] := 0;
+        //symbol._identifier[i] := 0;
     end;
             
     
