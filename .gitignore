@@ -1,3 +1,6 @@
 bootcompiler/*.o
 bootcompiler/*.ppu
 bin
+bootcompiler/fptest/*.o
+bootcompiler/fptest/*.ppu
+fptest.ini

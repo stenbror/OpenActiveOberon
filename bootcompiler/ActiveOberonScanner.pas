@@ -1,6 +1,8 @@
 
 unit ActiveOberonScanner;
 
+{$mode objfpc}{$H+}
+
 interface
 
 uses
@@ -8,8 +10,7 @@ uses
 
 const   
 
-    (* scanner constants *)
-	EOT = $0; LF = $0A; CR = $0D; TAB = $09;
+    MaxIdentifierLength = 128;
 
     (* Symbols used between scanner and parser *)
     Symb_None = 0;
@@ -42,13 +43,15 @@ const
 
 type
 
+    IdentifierString = array [0..MaxIdentifierLength] of Char;
+
     Token = Int64; (* Symbol Code *)
 
     (* Symbol: Data structure for transfer of data between scanner and parser *)
     Symbol = record 
         _start, _end, _line: Int64; 
         _symbol: Token;
-        _identifier: string;
+        _identifier: IdentifierString;
         _string: string;
         _stringLength: Int64;
         _numberType: Int64;
@@ -73,6 +76,7 @@ type
         procedure GetNextCharacter;
         procedure SkipBlanks;
         procedure GetNextSymbol(var symbol: Symbol; var error: Boolean);
+        procedure GetIdentifier(var symbol: Symbol);
     end;
 
 var
@@ -177,6 +181,37 @@ implementation
                 inc(line);
             end;
     end;
+
+
+    procedure TScannerObject.GetIdentifier(var symbol: Symbol);
+    var i : Int64;
+
+        function IsReservedKeywordCharacter() : Boolean;
+        var res : Boolean;
+        begin
+            case ch of
+                'a' .. 'z' : res := true;
+                'A' .. 'Z' : res := true;
+                '0' .. '9' : res := true;
+                '_' : res := true
+                else res := false
+            end;
+            result := res;
+        end;
+
+
+    begin
+        i := 0;
+        while IsReservedKeywordCharacter() do
+            begin
+                symbol._identifier[i] := ch; GetNextCharacter;
+                if i = MaxIdentifierLength then exit 
+            end;
+        symbol._identifier[i] := 0;
+    end;
+            
+    
+
 
     procedure TScannerObject.SkipBlanks;
     begin

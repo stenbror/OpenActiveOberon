@@ -2,6 +2,8 @@
 
 unit ActiveOberonParser;
 
+{$mode objfpc}{$H+}
+
 interface
 
 

@@ -1,5 +1,7 @@
 program test;
 
+{$mode objfpc}{$H+}
+
 uses
    crt, ActiveOberonScanner, ActiveOberonParser;
 
