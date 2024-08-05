@@ -39,7 +39,7 @@ var
     error: Boolean;
 
 begin
-  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_unequal.pas');
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_unequal.mod');
   scanner.GetNextSymbol(symbol, error);
   Check(symbol._symbol = Symb_Unequal, 'Expecting: #');
   scanner.Done();
@@ -53,7 +53,7 @@ var
     error: Boolean;
 
 begin
-  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_and.pas');
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_and.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(symbol._symbol, Symb_And, 'Expecting: &');
   scanner.Done();
@@ -67,7 +67,7 @@ var
     error: Boolean;
 
 begin
-  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_left_parenthesis.pas');
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_left_parenthesis.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(symbol._symbol, Symb_LeftParenthesis, 'Expecting: (');
   scanner.Done();
@@ -81,7 +81,7 @@ var
     error: Boolean;
 
 begin
-  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_right_parenthesis.pas');
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_right_parenthesis.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(symbol._symbol, Symb_RightParenthesis, 'Expecting: )');
   scanner.Done();
@@ -95,7 +95,7 @@ var
     error: Boolean;
 
 begin
-  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_power.pas');
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_power.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(symbol._symbol, Symb_TimesTimes, 'Expecting: )');
   scanner.Done();
@@ -109,7 +109,7 @@ var
     error: Boolean;
 
 begin
-  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_times.pas');
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_times.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(symbol._symbol, Symb_Times, 'Expecting: *');
   scanner.Done();
