@@ -250,6 +250,7 @@ implementation
             '-' :   begin s := Symb_Minus; GetNextCharacter; end;
             ';' :   begin s := Symb_Semicolon; GetNextCharacter; end;
             '.' :   begin 
+                        GetNextCharacter();
                         if ch = '.' then begin GetNextCharacter; s := Symb_Upto; end
                         else if ch = '*' then begin GetNextCharacter; s := Symb_DotTimes; end
                         else if ch = '/' then begin GetNextCharacter; s := Symb_DotSlash; end

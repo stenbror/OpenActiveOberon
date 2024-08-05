@@ -23,7 +23,14 @@ type
       procedure TestOperatorPlus;
       procedure TestOperatorComma;
       procedure TestOperatorMinus;
-      
+      procedure TestOperatorPeriod;
+      procedure TestOperatorUpto;
+      procedure TestOperatorDotEqual;
+      procedure TestOperatorDotUnEqual;
+      procedure TestOperatorDotGreaterEqual;
+      procedure TestOperatorDotGreater;
+      procedure TestOperatorDotLessEqual;
+      procedure TestOperatorDotLess;
           
   end;
 
@@ -172,6 +179,118 @@ begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_minus.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(symbol._symbol, Symb_Minus, 'Expecting: -');
+  scanner.Done();
+end;
+
+(* UnitTest: . *)
+procedure TTestActiveOberonScanner.TestOperatorPeriod;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_period.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Period, 'Expecting: .');
+  scanner.Done();
+end;
+
+(* UnitTest: .. *)
+procedure TTestActiveOberonScanner.TestOperatorUpto;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_upto.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Upto, 'Expecting: ..');
+  scanner.Done();
+end;
+
+(* UnitTest: .= *)
+procedure TTestActiveOberonScanner.TestOperatorDotEqual;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_equal.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_DotEqual, 'Expecting: .=');
+  scanner.Done();
+end;
+
+(* UnitTest: .# *)
+procedure TTestActiveOberonScanner.TestOperatorDotUnEqual;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_unequal.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_DotUnEqual, 'Expecting: .#');
+  scanner.Done();
+end;
+
+(* UnitTest: .>= *)
+procedure TTestActiveOberonScanner.TestOperatorDotGreaterEqual;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_greater_equal.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_DotGreaterEqual, 'Expecting: .>=');
+  scanner.Done();
+end;
+
+(* UnitTest: .> *)
+procedure TTestActiveOberonScanner.TestOperatorDotGreater;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_greater.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_DotGreater, 'Expecting: .>');
+  scanner.Done();
+end;
+
+(* UnitTest: .<= *)
+procedure TTestActiveOberonScanner.TestOperatorDotLessEqual;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_less_equal.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_DotLessEqual, 'Expecting: .<=');
+  scanner.Done();
+end;
+
+(* UnitTest: .< *)
+procedure TTestActiveOberonScanner.TestOperatorDotLess;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_less.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_DotLess, 'Expecting: .<');
   scanner.Done();
 end;
 
