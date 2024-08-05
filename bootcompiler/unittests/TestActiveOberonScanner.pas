@@ -19,6 +19,10 @@ type
       procedure TestOperatorRightParenthesis;
       procedure TestOperatorTimesTimes;
       procedure TestOperatorTimes;
+      procedure TestOperatorPlusTimes;
+      procedure TestOperatorPlus;
+      procedure TestOperatorComma;
+      procedure TestOperatorMinus;
       
           
   end;
@@ -112,6 +116,62 @@ begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_times.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(symbol._symbol, Symb_Times, 'Expecting: *');
+  scanner.Done();
+end;
+
+(* UnitTest: +* *)
+procedure TTestActiveOberonScanner.TestOperatorPlusTimes;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_plus_mul.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_PlusTimes, 'Expecting: +*');
+  scanner.Done();
+end;
+
+(* UnitTest: + *)
+procedure TTestActiveOberonScanner.TestOperatorPlus;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_plus.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Plus, 'Expecting: +');
+  scanner.Done();
+end;
+
+(* UnitTest: + *)
+procedure TTestActiveOberonScanner.TestOperatorComma;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_comma.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Comma, 'Expecting: ,');
+  scanner.Done();
+end;
+
+(* UnitTest: + *)
+procedure TTestActiveOberonScanner.TestOperatorMinus;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_minus.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Minus, 'Expecting: -');
   scanner.Done();
 end;
 
