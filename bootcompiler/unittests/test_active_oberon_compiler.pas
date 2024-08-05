@@ -6,11 +6,17 @@ uses
 
   Classes,
   TextTestRunner,
+  TestFramework,
   TestActiveOberonScanner;
+
+  procedure RegisterTests;
+  begin
+    TestFramework.RegisterTest(TTestActiveOberonScanner.Suite);
+  end;
 
 begin
   
-  TestActiveOberonScanner.RegisterTests;
+  RegisterTests;
 
   RunRegisteredTests;
 

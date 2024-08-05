@@ -6,20 +6,19 @@ interface
 
 uses
 
-  TestFramework;
+  TestFramework, ActiveOberonScanner;
 
 type
   
-  TTestCaseFirst = class(TTestCase)
+  (* Test class for Scanner *)
+  TTestActiveOberonScanner = class(TTestCase)
     published
-          
-      procedure TestNoError;
+      procedure TestOperatorUnEqual;
+      procedure TestOperatorAnd;
+      procedure TestOperatorLeftParenthesis;
+      
           
   end;
-
-
-procedure RegisterTests;
-
 
 implementation
 
@@ -27,32 +26,48 @@ uses
 
   SysUtils;
 
+{ TTestActiveOberonScanner }
 
-{ here we register all our test classes }
-procedure RegisterTests;
+(* UnitTest: UnEqual*)
+procedure TTestActiveOberonScanner.TestOperatorUnEqual;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
 begin
-  TestFramework.RegisterTest(TTestCaseFirst.Suite);
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_unequal.pas');
+  scanner.GetNextSymbol(symbol, error);
+  Check(symbol._symbol = Symb_Unequal, 'Expecting: #');
+  scanner.Done();
 end;
 
-{ TTestCaseFirst }
+(* UnitTest: And*)
+procedure TTestActiveOberonScanner.TestOperatorAnd;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
 
-
-procedure TTestCaseFirst.TestNoError;
 begin
-  Check(1 + 1 = 2, 'Catastrophic arithmetic failure!');
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_and.pas');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_And, 'Expecting: &');
+  scanner.Done();
 end;
 
+(* UnitTest: ( *)
+procedure TTestActiveOberonScanner.TestOperatorLeftParenthesis;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
 
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_left_parenthesis.pas');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_LeftParenthesis, 'Expecting: ()');
+  scanner.Done();
+end;
 
 end.
-
-(* 
-  Check(x / y = 0, 'Failed on 1');
-  CheckEquals('Hello', s, 'Failed CheckEquals');
-
-  procedure TTestCaseFirst.TestNoError;
-  begin
-    Check(1 + 1 = 2, 'Catastrophic arithmetic failure!');
-  end;
-
-*)
