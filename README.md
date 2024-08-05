@@ -12,4 +12,10 @@ To build:
 - Execute 'build.sh'
 - Resulting bootstrap binary will be in bin/ folder.
 
-  
+## Unittesting
+
+All UnitTests can be executed by executing **build.sh**
+
+This will build the Compiler and the test harness. Both binaries ends up in *bin* folder.
+
+- Execute *bin/test_active_oberon_compiler* to just do the UnitTests.
