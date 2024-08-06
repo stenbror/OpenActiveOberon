@@ -59,6 +59,59 @@ type
       procedure TestOperatorExplanationMarks;
 
       procedure TestKeywordCell;
+      procedure TestKeywordCellNet;
+      procedure TestKeywordAwait;
+      procedure TestKeywordBegin;
+      procedure TestKeywordBy;
+      procedure TestKeywordConst;
+      procedure TestKeywordCase;
+      procedure TestKeywordCode;
+      procedure TestKeywordDefinition;
+      procedure TestKeywordDo;
+      procedure TestKeywordDiv;
+      procedure TestKeywordEnd;
+      procedure TestKeywordEnum;
+      procedure TestKeywordElse;
+      procedure TestKeywordElsif;
+      procedure TestKeywordExit;
+      procedure TestKeywordExtern;
+      procedure TestKeywordFalse;
+      procedure TestKeywordFor;
+      procedure TestKeywordFinally;
+      procedure TestKeywordIf;
+      procedure TestKeywordImag;
+      procedure TestKeywordIn;
+      procedure TestKeywordIs;
+      procedure TestKeywordImport;
+      procedure TestKeywordLoop;
+      procedure TestKeywordModule;
+      procedure TestKeywordMod;
+      procedure TestKeywordNil;
+      procedure TestKeywordOf;
+      procedure TestKeywordOr;
+      procedure TestKeywordOut;
+      procedure TestKeywordOperator;
+      procedure TestKeywordProcedure;
+      procedure TestKeywordPort;
+      procedure TestKeywordRepeat;
+      procedure TestKeywordReturn;
+      procedure TestKeywordSelf;
+      procedure TestKeywordResult;
+      procedure TestKeywordThen;
+      procedure TestKeywordTrue;
+      procedure TestKeywordTo;
+      procedure TestKeywordType;
+      procedure TestKeywordUntil;
+      procedure TestKeywordVar;
+      procedure TestKeywordWhile;
+      procedure TestKeywordWith;
+      procedure TestKeywordArray;
+      procedure TestKeywordObject;
+      procedure TestKeywordPointer;
+      procedure TestKeywordRecord;
+      procedure TestKeywordAddress;
+      procedure TestKeywordSize;
+      procedure TestKeywordAlias;
           
   end;
 
@@ -697,6 +750,748 @@ begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_cell.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(Symb_Cell, symbol._symbol, 'Expecting: cell');
+  scanner.Done();
+end;
+
+(* UnitTest: cellnet *)
+procedure TTestActiveOberonScanner.TestKeywordCellNet;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_cellnet.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_CellNet, symbol._symbol, 'Expecting: cellnet');
+  scanner.Done();
+end;
+
+(* UnitTest: await *)
+procedure TTestActiveOberonScanner.TestKeywordAwait;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_await.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Await, symbol._symbol, 'Expecting: await');
+  scanner.Done();
+end;
+
+(* UnitTest: begin *)
+procedure TTestActiveOberonScanner.TestKeywordBegin;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_begin.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Begin, symbol._symbol, 'Expecting: begin');
+  scanner.Done();
+end;
+
+(* UnitTest: by *)
+procedure TTestActiveOberonScanner.TestKeywordBy;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_by.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_By, symbol._symbol, 'Expecting: by');
+  scanner.Done();
+end;
+
+(* UnitTest: const *)
+procedure TTestActiveOberonScanner.TestKeywordConst;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_const.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Const, symbol._symbol, 'Expecting: const');
+  scanner.Done();
+end;
+
+(* UnitTest: case *)
+procedure TTestActiveOberonScanner.TestKeywordCase;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_case.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Case, symbol._symbol, 'Expecting: case');
+  scanner.Done();
+end;
+
+(* UnitTest: code *)
+procedure TTestActiveOberonScanner.TestKeywordCode;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_code.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Code, symbol._symbol, 'Expecting: code');
+  scanner.Done();
+end;
+
+(* UnitTest: definition *)
+procedure TTestActiveOberonScanner.TestKeywordDefinition;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_definition.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Definition, symbol._symbol, 'Expecting: definition');
+  scanner.Done();
+end;
+
+(* UnitTest: do *)
+procedure TTestActiveOberonScanner.TestKeywordDo;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_do.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Do, symbol._symbol, 'Expecting: do');
+  scanner.Done();
+end;
+
+(* UnitTest: div *)
+procedure TTestActiveOberonScanner.TestKeywordDiv;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_div.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Div, symbol._symbol, 'Expecting: div');
+  scanner.Done();
+end;
+
+(* UnitTest: end *)
+procedure TTestActiveOberonScanner.TestKeywordEnd;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_end.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_End, symbol._symbol, 'Expecting: end');
+  scanner.Done();
+end;
+
+(* UnitTest: enum *)
+procedure TTestActiveOberonScanner.TestKeywordEnum;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_enum.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Enum, symbol._symbol, 'Expecting: enum');
+  scanner.Done();
+end;
+
+(* UnitTest: else *)
+procedure TTestActiveOberonScanner.TestKeywordElse;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_else.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Else, symbol._symbol, 'Expecting: ');
+  scanner.Done();
+end;
+
+(* UnitTest: elsif *)
+procedure TTestActiveOberonScanner.TestKeywordElsif;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_elsif.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Elsif, symbol._symbol, 'Expecting: elsif');
+  scanner.Done();
+end;
+
+(* UnitTest: exit *)
+procedure TTestActiveOberonScanner.TestKeywordExit;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_exit.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Exit, symbol._symbol, 'Expecting: exit');
+  scanner.Done();
+end;
+
+(* UnitTest: extern *)
+procedure TTestActiveOberonScanner.TestKeywordExtern;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_extern.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Extern, symbol._symbol, 'Expecting: extern');
+  scanner.Done();
+end;
+
+(* UnitTest: false *)
+procedure TTestActiveOberonScanner.TestKeywordFalse;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_false.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_False, symbol._symbol, 'Expecting: false');
+  scanner.Done();
+end;
+
+(* UnitTest: for *)
+procedure TTestActiveOberonScanner.TestKeywordFor;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_for.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_For, symbol._symbol, 'Expecting: for');
+  scanner.Done();
+end;
+
+(* UnitTest: finally *)
+procedure TTestActiveOberonScanner.TestKeywordFinally;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_finally.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Finally, symbol._symbol, 'Expecting: finally');
+  scanner.Done();
+end;
+
+(* UnitTest: if *)
+procedure TTestActiveOberonScanner.TestKeywordIf;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_if.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_If, symbol._symbol, 'Expecting: if');
+  scanner.Done();
+end;
+
+(* UnitTest: imag *)
+procedure TTestActiveOberonScanner.TestKeywordImag;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_imag.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Imag, symbol._symbol, 'Expecting: imag');
+  scanner.Done();
+end;
+
+(* UnitTest: in *)
+procedure TTestActiveOberonScanner.TestKeywordIn;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_in.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_In, symbol._symbol, 'Expecting: in');
+  scanner.Done();
+end;
+
+(* UnitTest: is *)
+procedure TTestActiveOberonScanner.TestKeywordIs;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_is.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Is, symbol._symbol, 'Expecting: is');
+  scanner.Done();
+end;
+
+(* UnitTest: import *)
+procedure TTestActiveOberonScanner.TestKeywordImport;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_import.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Import, symbol._symbol, 'Expecting: import');
+  scanner.Done();
+end;
+
+(* UnitTest: loop *)
+procedure TTestActiveOberonScanner.TestKeywordLoop;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_loop.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Loop, symbol._symbol, 'Expecting: loop');
+  scanner.Done();
+end;
+
+(* UnitTest: module *)
+procedure TTestActiveOberonScanner.TestKeywordModule;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_module.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Module, symbol._symbol, 'Expecting: module');
+  scanner.Done();
+end;
+
+(* UnitTest: mod *)
+procedure TTestActiveOberonScanner.TestKeywordMod;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_mod.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Mod, symbol._symbol, 'Expecting: mod');
+  scanner.Done();
+end;
+
+(* UnitTest: nil *)
+procedure TTestActiveOberonScanner.TestKeywordNil;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_nil.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Nil, symbol._symbol, 'Expecting: nil');
+  scanner.Done();
+end;
+
+(* UnitTest: of *)
+procedure TTestActiveOberonScanner.TestKeywordOf;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_of.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Of, symbol._symbol, 'Expecting: of');
+  scanner.Done();
+end;
+
+(* UnitTest: or *)
+procedure TTestActiveOberonScanner.TestKeywordOr;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_or.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Or, symbol._symbol, 'Expecting: or');
+  scanner.Done();
+end;
+
+(* UnitTest: out *)
+procedure TTestActiveOberonScanner.TestKeywordOut;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_out.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Out, symbol._symbol, 'Expecting: out');
+  scanner.Done();
+end;
+
+(* UnitTest: operator *)
+procedure TTestActiveOberonScanner.TestKeywordOperator;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_operator.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Operator, symbol._symbol, 'Expecting: operator');
+  scanner.Done();
+end;
+
+(* UnitTest: procedure *)
+procedure TTestActiveOberonScanner.TestKeywordProcedure;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_procedure.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Procedure, symbol._symbol, 'Expecting: procedure');
+  scanner.Done();
+end;
+
+(* UnitTest: port *)
+procedure TTestActiveOberonScanner.TestKeywordPort;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_port.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Port, symbol._symbol, 'Expecting: port');
+  scanner.Done();
+end;
+
+(* UnitTest: repeat *)
+procedure TTestActiveOberonScanner.TestKeywordRepeat;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_repeat.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Repeat, symbol._symbol, 'Expecting: repeat');
+  scanner.Done();
+end;
+
+(* UnitTest: return *)
+procedure TTestActiveOberonScanner.TestKeywordReturn;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_return.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Return, symbol._symbol, 'Expecting: return');
+  scanner.Done();
+end;
+
+(* UnitTest: self *)
+procedure TTestActiveOberonScanner.TestKeywordSelf;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_self.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Self, symbol._symbol, 'Expecting: self');
+  scanner.Done();
+end;
+
+(* UnitTest: result *)
+procedure TTestActiveOberonScanner.TestKeywordResult;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_result.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Result, symbol._symbol, 'Expecting: result');
+  scanner.Done();
+end;
+
+(* UnitTest: then *)
+procedure TTestActiveOberonScanner.TestKeywordThen;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_then.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Then, symbol._symbol, 'Expecting: then');
+  scanner.Done();
+end;
+
+(* UnitTest: true *)
+procedure TTestActiveOberonScanner.TestKeywordTrue;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_true.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_True, symbol._symbol, 'Expecting: true');
+  scanner.Done();
+end;
+
+(* UnitTest: to *)
+procedure TTestActiveOberonScanner.TestKeywordTo;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_to.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_To, symbol._symbol, 'Expecting: to');
+  scanner.Done();
+end;
+
+(* UnitTest: type *)
+procedure TTestActiveOberonScanner.TestKeywordType;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_type.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Type, symbol._symbol, 'Expecting: type');
+  scanner.Done();
+end;
+
+(* UnitTest: until *)
+procedure TTestActiveOberonScanner.TestKeywordUntil;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_until.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Until, symbol._symbol, 'Expecting: until');
+  scanner.Done();
+end;
+
+(* UnitTest: var *)
+procedure TTestActiveOberonScanner.TestKeywordVar;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_var.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Var, symbol._symbol, 'Expecting: var');
+  scanner.Done();
+end;
+
+(* UnitTest: while *)
+procedure TTestActiveOberonScanner.TestKeywordWhile;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_while.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_While, symbol._symbol, 'Expecting: while');
+  scanner.Done();
+end;
+
+(* UnitTest: with *)
+procedure TTestActiveOberonScanner.TestKeywordWith;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_with.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_With, symbol._symbol, 'Expecting: with');
+  scanner.Done();
+end;
+
+(* UnitTest: array *)
+procedure TTestActiveOberonScanner.TestKeywordArray;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_array.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Array, symbol._symbol, 'Expecting: array');
+  scanner.Done();
+end;
+
+(* UnitTest: object *)
+procedure TTestActiveOberonScanner.TestKeywordObject;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_object.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Object, symbol._symbol, 'Expecting: object');
+  scanner.Done();
+end;
+
+(* UnitTest: pointer *)
+procedure TTestActiveOberonScanner.TestKeywordPointer;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_pointer.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Pointer, symbol._symbol, 'Expecting: pointer');
+  scanner.Done();
+end;
+
+(* UnitTest: record *)
+procedure TTestActiveOberonScanner.TestKeywordRecord;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_record.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Record, symbol._symbol, 'Expecting: record');
+  scanner.Done();
+end;
+
+(* UnitTest: address *)
+procedure TTestActiveOberonScanner.TestKeywordAddress;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_address.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Address, symbol._symbol, 'Expecting: address');
+  scanner.Done();
+end;
+
+(* UnitTest: size *)
+procedure TTestActiveOberonScanner.TestKeywordSize;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_size.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Size, symbol._symbol, 'Expecting: size');
+  scanner.Done();
+end;
+
+(* UnitTest: alias *)
+procedure TTestActiveOberonScanner.TestKeywordAlias;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_alias.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Alias, symbol._symbol, 'Expecting: alias');
   scanner.Done();
 end;
 

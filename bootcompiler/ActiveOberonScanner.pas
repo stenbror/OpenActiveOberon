@@ -305,6 +305,7 @@ implementation
                                 else begin
                                     symbol._identifier := text;
                                     s := Identifier;
+                                    text := '';
                                 end
                             end;
             '0' .. '9' :    begin end;
