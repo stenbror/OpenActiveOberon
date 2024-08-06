@@ -31,6 +31,10 @@ type
       procedure TestOperatorDotGreater;
       procedure TestOperatorDotLessEqual;
       procedure TestOperatorDotLess;
+      procedure TestOperatorBecomes;
+      procedure TestOperatorSlash;
+      procedure TestOperatorColon;
+      procedure TestOperatorSemiColon;
           
   end;
 
@@ -291,6 +295,62 @@ begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_less.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(symbol._symbol, Symb_DotLess, 'Expecting: .<');
+  scanner.Done();
+end;
+
+(* UnitTest: / *)
+procedure TTestActiveOberonScanner.TestOperatorSlash;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_slash.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Slash, 'Expecting: /');
+  scanner.Done();
+end;
+
+(* UnitTest: := *)
+procedure TTestActiveOberonScanner.TestOperatorBecomes;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_becomes.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Becomes, 'Expecting: :=');
+  scanner.Done();
+end;
+
+(* UnitTest: : *)
+procedure TTestActiveOberonScanner.TestOperatorColon;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_colon.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Colon, 'Expecting: :');
+  scanner.Done();
+end;
+
+(* UnitTest: ; *)
+procedure TTestActiveOberonScanner.TestOperatorSemiColon;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_semicolon.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_SemiColon, 'Expecting: :');
   scanner.Done();
 end;
 
