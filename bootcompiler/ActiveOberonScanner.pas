@@ -307,6 +307,7 @@ implementation
             '`' :   begin s := Symb_Transpose; GetNextCharacter; end;
             '!' :   begin GetNextCharacter; if ch = '!' then begin GetNextCharacter; s := Symb_ExclamationMarks; end else s := Symb_ExclamationMark; end;
             '?' :   begin GetNextCharacter; if ch = '?' then begin GetNextCharacter; s := Symb_Questionmarks; end else s := Symb_Questionmark; end;
+            '\' :   begin GetNextCharacter; s := Symb_Backslash;  end; // String handling later!
             'A' .. 'Z' :    begin end;
             'a' .. 'z' :    begin end;
             '0' .. '9' :    begin end;

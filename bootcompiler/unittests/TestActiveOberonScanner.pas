@@ -609,9 +609,8 @@ var
 
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_backslash.mod');
-  //scanner.GetNextSymbol(symbol, error);
-  //CheckEquals(Symb_Backslash, symbol._symbol, 'Expecting: \\');
-  Check(1 = 1, 'Remove and use existing test when operator is implemented!');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Backslash, symbol._symbol, 'Expecting: \');
   scanner.Done();
 end;
 
