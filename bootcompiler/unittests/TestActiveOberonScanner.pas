@@ -57,6 +57,8 @@ type
       procedure TestOperatorQuestionMarks;
       procedure TestOperatorExplanationMark;
       procedure TestOperatorExplanationMarks;
+
+      procedure TestKeywordCell;
           
   end;
 
@@ -681,6 +683,20 @@ begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_explanationmarks.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(Symb_ExclamationMarks, symbol._symbol, 'Expecting: !!');
+  scanner.Done();
+end;
+
+(* UnitTest: cell *)
+procedure TTestActiveOberonScanner.TestKeywordCell;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_cell.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Cell, symbol._symbol, 'Expecting: cell');
   scanner.Done();
 end;
 

@@ -39,7 +39,9 @@ const
 
     (* Number types *)
     Shortint = 108; Integer = 109; Longint = 110; Hugeint = 111; Real = 112; Longreal = 113; 
-	Comment = 114; EndOfText = 115; 
+	Comment = 114; EndOfText = 115;
+
+    Identifier = 128;
 
 type
 
@@ -76,7 +78,7 @@ type
         procedure GetNextCharacter;
         procedure SkipBlanks;
         procedure GetNextSymbol(var symbol: Symbol; var error: Boolean);
-        procedure GetIdentifier(var symbol: Symbol);
+        
     end;
 
 var
@@ -86,6 +88,8 @@ var
     ch: char;
     position: Int64;
     line: Int64;
+
+    id: TKeywordObject;
 
 implementation
 
@@ -182,37 +186,6 @@ implementation
             end;
     end;
 
-
-    procedure TScannerObject.GetIdentifier(var symbol: Symbol);
-    var i : Int64;
-
-        function IsReservedKeywordCharacter() : Boolean;
-        var res : Boolean;
-        begin
-            case ch of
-                'a' .. 'z' : res := true;
-                'A' .. 'Z' : res := true;
-                '0' .. '9' : res := true;
-                '_' : res := true
-                else res := false
-            end;
-            result := res;
-        end;
-
-
-    begin
-        i := 0;
-        while IsReservedKeywordCharacter() do
-            begin
-                symbol._identifier[i] := ch; GetNextCharacter;
-                if i = MaxIdentifierLength then exit 
-            end;
-        //symbol._identifier[i] := 0;
-    end;
-            
-    
-
-
     procedure TScannerObject.SkipBlanks;
     begin
         while  (ch <= ' ') and (ch <> '\0') do
@@ -225,6 +198,7 @@ implementation
     procedure TScannerObject.GetNextSymbol(var symbol: Symbol; var error: Boolean);
     VAR 
         s, token: Int64;
+        text: string;
 
     begin
         
@@ -308,8 +282,31 @@ implementation
             '!' :   begin GetNextCharacter; if ch = '!' then begin GetNextCharacter; s := Symb_ExclamationMarks; end else s := Symb_ExclamationMark; end;
             '?' :   begin GetNextCharacter; if ch = '?' then begin GetNextCharacter; s := Symb_Questionmarks; end else s := Symb_Questionmark; end;
             '\' :   begin GetNextCharacter; s := Symb_Backslash;  end; // String handling later!
-            'A' .. 'Z' :    begin end;
-            'a' .. 'z' :    begin end;
+            'A' .. 'Z' :    begin 
+                                text := ch; GetNextCharacter;
+                                while ((ch >= 'a') and (ch <= 'z')) or ((ch >= 'A') and (ch <= 'Z')) or (ch = '_') or ((ch >= '0') and (ch <= '9')) do 
+                                    begin
+                                        text := text + ch;
+                                        GetNextCharacter;
+                                    end;
+                                    symbol._identifier := text;
+                                    s := Identifier;
+                            end;
+            'a' .. 'z' :    begin
+                                text := ch; GetNextCharacter;
+                                while ((ch >= 'a') and (ch <= 'z')) or ((ch >= 'A') and (ch <= 'Z')) or (ch = '_') or ((ch >= '0') and (ch <= '9')) do 
+                                    begin
+                                        text := text + ch;
+                                        GetNextCharacter;
+                                    end;
+                                id := Keywords.Find(text) as TKeywordObject;
+                                if id <> nil then 
+                                    s := id.Symbol
+                                else begin
+                                    symbol._identifier := text;
+                                    s := Identifier;
+                                end
+                            end;
             '0' .. '9' :    begin end;
 
 
