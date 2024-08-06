@@ -35,6 +35,15 @@ type
       procedure TestOperatorSlash;
       procedure TestOperatorColon;
       procedure TestOperatorSemiColon;
+      procedure TestOperatorEqual;
+      procedure TestOperatorLess;
+      procedure TestOperatorLessEqual;
+      procedure TestOperatorLessLess;
+      procedure TestOperatorLessLessQ;
+      procedure TestOperatorGreater;
+      procedure TestOperatorGreaterEqual;
+      procedure TestOperatorGreaterGreater;
+      procedure TestOperatorGreaterGreaterQ;
           
   end;
 
@@ -351,6 +360,132 @@ begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_semicolon.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(symbol._symbol, Symb_SemiColon, 'Expecting: :');
+  scanner.Done();
+end;
+
+(* UnitTest: = *)
+procedure TTestActiveOberonScanner.TestOperatorEqual;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_equal.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Equal, 'Expecting: =');
+  scanner.Done();
+end;
+
+(* UnitTest: < *)
+procedure TTestActiveOberonScanner.TestOperatorLess;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_less.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Less, 'Expecting: <');
+  scanner.Done();
+end;
+
+(* UnitTest: << *)
+procedure TTestActiveOberonScanner.TestOperatorLessLess;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_lessless.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_LessLess, 'Expecting: <<');
+  scanner.Done();
+end;
+
+(* UnitTest: <<? *)
+procedure TTestActiveOberonScanner.TestOperatorLessLessQ;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_lesslessQ.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_LessLessQ, 'Expecting: <<?');
+  scanner.Done();
+end;
+
+(* UnitTest: <= *)
+procedure TTestActiveOberonScanner.TestOperatorLessEqual;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_less_equal.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_LessEqual, 'Expecting: <=');
+  scanner.Done();
+end;
+
+(* UnitTest: > *)
+procedure TTestActiveOberonScanner.TestOperatorGreater;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_greater.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_Greater, 'Expecting: >');
+  scanner.Done();
+end;
+
+(* UnitTest: >> *)
+procedure TTestActiveOberonScanner.TestOperatorGreaterGreater;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_greatergreater.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_GreaterGreater, 'Expecting: >>');
+  scanner.Done();
+end;
+
+(* UnitTest: >>? *)
+procedure TTestActiveOberonScanner.TestOperatorGreaterGreaterQ;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_greatergreaterQ.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_GreaterGreaterQ, 'Expecting: >>?');
+  scanner.Done();
+end;
+
+(* UnitTest: <= *)
+procedure TTestActiveOberonScanner.TestOperatorGreaterEqual;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_greater_equal.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(symbol._symbol, Symb_GreaterEqual, 'Expecting: >=');
   scanner.Done();
 end;
 

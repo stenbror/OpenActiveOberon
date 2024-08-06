@@ -295,7 +295,7 @@ implementation
                             end
                             else s := Symb_GreaterGreater;
                         end
-                        else s := Symb_Less;
+                        else s := Symb_Greater;
                     end;
             '[' :   begin s := Symb_LeftBracket; GetNextCharacter; end;
             ']' :   begin s := Symb_RightBracket; GetNextCharacter; end;
