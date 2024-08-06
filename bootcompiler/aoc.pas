@@ -22,5 +22,6 @@ begin
 
 
    parser := TParserObject.Create('/home/stenbror/OpenActiveOberon/bin/test.pas');
+   parser.Advance;
 
 end.
