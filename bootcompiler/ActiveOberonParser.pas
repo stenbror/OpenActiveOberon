@@ -12,7 +12,8 @@ const
 
     (* Abstract Syntax Three node types *)
     nk_none = 0; nk_identifier = 1; nk_nil = 2; nk_imag = 3; nk_true = 4; nk_false = 5; nk_self = 6; nk_result = 7; 
-    nk_address = 8; nk_address_of = 9; nk_size = 10; nk_size_of = 11; nk_alias = 12; 
+    nk_address = 8; nk_address_of = 9; nk_size = 10; nk_size_of = 11; nk_alias = 12; nk_number = 13; nk_character = 14;
+    nk_string = 15;
 
 type
 
@@ -109,9 +110,44 @@ implementation
     function TParserObject.ParsePrimaryExpression : TNode;
     begin
         case symbol._symbol of
-            Identifier or Symb_Nil or Symb_Imag or Symb_True or Symb_False or Symb_Self or Symb_Result or Symb_Number or Symb_Character or Symb_String:     
-                            begin   
+            Identifier:     begin   
                                 result := TPrimaryNode.Create(symbol._start, symbol._end, symbol._line, nk_identifier, symbol); 
+                                Advance;
+                            end;
+            Symb_Nil:       begin   
+                                result := TPrimaryNode.Create(symbol._start, symbol._end, symbol._line, nk_nil, symbol); 
+                                Advance;
+                            end;
+            Symb_Imag:      begin   
+                                result := TPrimaryNode.Create(symbol._start, symbol._end, symbol._line, nk_imag, symbol); 
+                                Advance;
+                            end;
+            Symb_True:      begin   
+                                result := TPrimaryNode.Create(symbol._start, symbol._end, symbol._line, nk_true, symbol); 
+                                Advance;
+                            end;
+            Symb_False:     begin   
+                                result := TPrimaryNode.Create(symbol._start, symbol._end, symbol._line, nk_false, symbol); 
+                                Advance;
+                            end;
+            Symb_Self:      begin   
+                                result := TPrimaryNode.Create(symbol._start, symbol._end, symbol._line, nk_self, symbol); 
+                                Advance;
+                            end;
+            Symb_Result:    begin   
+                                result := TPrimaryNode.Create(symbol._start, symbol._end, symbol._line, nk_result, symbol); 
+                                Advance;
+                            end;
+            Symb_Number:    begin   
+                                result := TPrimaryNode.Create(symbol._start, symbol._end, symbol._line, nk_number, symbol); 
+                                Advance;
+                            end;
+            Symb_Character: begin   
+                                result := TPrimaryNode.Create(symbol._start, symbol._end, symbol._line, nk_character, symbol); 
+                                Advance;
+                            end;
+            Symb_String:     begin   
+                                result := TPrimaryNode.Create(symbol._start, symbol._end, symbol._line, nk_string, symbol); 
                                 Advance;
                             end;
            
