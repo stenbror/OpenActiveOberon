@@ -232,17 +232,17 @@ implementation
         symbol._start := position; symbol._line := line;
 
         case ch of
-        '#' :   begin s := Symb_Unequal; GetNextCharacter; end;
-        '&' :   begin s := Symb_And; GetNextCharacter; end;
-        '(' :   begin 
-                        GetNextCharacter;   
-                        if ch = '*' then begin
-                            // Handle comment
-                            s := Comment;
-                        end
-                        else
-                            s := Symb_LeftParenthesis;
-                    end;
+            '#' :   begin s := Symb_Unequal; GetNextCharacter; end;
+            '&' :   begin s := Symb_And; GetNextCharacter; end;
+            '(' :   begin 
+                            GetNextCharacter;   
+                            if ch = '*' then begin
+                                // Handle comment
+                                s := Comment;
+                            end
+                            else
+                                s := Symb_LeftParenthesis;
+                        end;
             ')' :   begin s := Symb_RightParenthesis; GetNextCharacter; end;
             '*' :   begin GetNextCharacter; if ch = '*' then begin GetNextCharacter; s := Symb_TimesTimes; end else s := Symb_Times; end;
             '+' :   begin GetNextCharacter; if ch = '*' then begin GetNextCharacter; s := Symb_PlusTimes; end else s := Symb_Plus; end;

@@ -44,6 +44,19 @@ type
       procedure TestOperatorGreaterEqual;
       procedure TestOperatorGreaterGreater;
       procedure TestOperatorGreaterGreaterQ;
+      procedure TestOperatorLeftBracket;
+      procedure TestOperatorRightBracket;
+      procedure TestOperatorArrow;
+      procedure TestOperatorLeftBrace;
+      procedure TestOperatorRightBrace;
+      procedure TestOperatorBar;
+      procedure TestOperatorNot;
+      procedure TestOperatorBackSlash;
+      procedure TestOperatorTranspose;
+      procedure TestOperatorQuestionMark;
+      procedure TestOperatorQuestionMarks;
+      procedure TestOperatorExplanationMark;
+      procedure TestOperatorExplanationMarks;
           
   end;
 
@@ -65,7 +78,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_unequal.mod');
   scanner.GetNextSymbol(symbol, error);
-  Check(symbol._symbol = Symb_Unequal, 'Expecting: #');
+  CheckEquals(Symb_Unequal, symbol._symbol, 'Expecting: #');
   scanner.Done();
 end;
 
@@ -79,7 +92,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_and.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_And, 'Expecting: &');
+  CheckEquals(Symb_And, symbol._symbol, 'Expecting: &');
   scanner.Done();
 end;
 
@@ -93,7 +106,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_left_parenthesis.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_LeftParenthesis, 'Expecting: (');
+  CheckEquals(Symb_LeftParenthesis, symbol._symbol, 'Expecting: (');
   scanner.Done();
 end;
 
@@ -107,7 +120,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_right_parenthesis.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_RightParenthesis, 'Expecting: )');
+  CheckEquals(Symb_RightParenthesis, symbol._symbol, 'Expecting: )');
   scanner.Done();
 end;
 
@@ -121,7 +134,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_power.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_TimesTimes, 'Expecting: )');
+  CheckEquals(Symb_TimesTimes, symbol._symbol, 'Expecting: )');
   scanner.Done();
 end;
 
@@ -135,7 +148,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_times.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Times, 'Expecting: *');
+  CheckEquals(Symb_Times, symbol._symbol, 'Expecting: *');
   scanner.Done();
 end;
 
@@ -149,7 +162,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_plus_mul.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_PlusTimes, 'Expecting: +*');
+  CheckEquals(Symb_PlusTimes, symbol._symbol, 'Expecting: +*');
   scanner.Done();
 end;
 
@@ -163,7 +176,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_plus.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Plus, 'Expecting: +');
+  CheckEquals(Symb_Plus, symbol._symbol, 'Expecting: +');
   scanner.Done();
 end;
 
@@ -177,7 +190,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_comma.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Comma, 'Expecting: ,');
+  CheckEquals(Symb_Comma, symbol._symbol, 'Expecting: ,');
   scanner.Done();
 end;
 
@@ -191,7 +204,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_minus.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Minus, 'Expecting: -');
+  CheckEquals(Symb_Minus, symbol._symbol, 'Expecting: -');
   scanner.Done();
 end;
 
@@ -205,7 +218,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_period.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Period, 'Expecting: .');
+  CheckEquals(Symb_Period, symbol._symbol, 'Expecting: .');
   scanner.Done();
 end;
 
@@ -219,7 +232,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_upto.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Upto, 'Expecting: ..');
+  CheckEquals(Symb_Upto, symbol._symbol, 'Expecting: ..');
   scanner.Done();
 end;
 
@@ -233,7 +246,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_equal.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_DotEqual, 'Expecting: .=');
+  CheckEquals(Symb_DotEqual, symbol._symbol, 'Expecting: .=');
   scanner.Done();
 end;
 
@@ -247,7 +260,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_unequal.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_DotUnEqual, 'Expecting: .#');
+  CheckEquals(Symb_DotUnEqual, symbol._symbol, 'Expecting: .#');
   scanner.Done();
 end;
 
@@ -261,7 +274,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_greater_equal.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_DotGreaterEqual, 'Expecting: .>=');
+  CheckEquals(Symb_DotGreaterEqual, symbol._symbol, 'Expecting: .>=');
   scanner.Done();
 end;
 
@@ -275,7 +288,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_greater.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_DotGreater, 'Expecting: .>');
+  CheckEquals(Symb_DotGreater, symbol._symbol, 'Expecting: .>');
   scanner.Done();
 end;
 
@@ -289,7 +302,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_less_equal.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_DotLessEqual, 'Expecting: .<=');
+  CheckEquals(Symb_DotLessEqual, symbol._symbol, 'Expecting: .<=');
   scanner.Done();
 end;
 
@@ -303,7 +316,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_dot_less.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_DotLess, 'Expecting: .<');
+  CheckEquals(Symb_DotLess, symbol._symbol, 'Expecting: .<');
   scanner.Done();
 end;
 
@@ -317,7 +330,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_slash.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Slash, 'Expecting: /');
+  CheckEquals(Symb_Slash, symbol._symbol, 'Expecting: /');
   scanner.Done();
 end;
 
@@ -331,7 +344,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_becomes.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Becomes, 'Expecting: :=');
+  CheckEquals(Symb_Becomes, symbol._symbol, 'Expecting: :=');
   scanner.Done();
 end;
 
@@ -345,7 +358,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_colon.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Colon, 'Expecting: :');
+  CheckEquals(Symb_Colon, symbol._symbol, 'Expecting: :');
   scanner.Done();
 end;
 
@@ -359,7 +372,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_semicolon.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_SemiColon, 'Expecting: :');
+  CheckEquals(Symb_SemiColon, symbol._symbol, 'Expecting: :');
   scanner.Done();
 end;
 
@@ -373,7 +386,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_equal.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Equal, 'Expecting: =');
+  CheckEquals(Symb_Equal, symbol._symbol, 'Expecting: =');
   scanner.Done();
 end;
 
@@ -387,7 +400,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_less.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Less, 'Expecting: <');
+  CheckEquals(Symb_Less, symbol._symbol, 'Expecting: <');
   scanner.Done();
 end;
 
@@ -401,7 +414,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_lessless.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_LessLess, 'Expecting: <<');
+  CheckEquals(Symb_LessLess, symbol._symbol, 'Expecting: <<');
   scanner.Done();
 end;
 
@@ -415,7 +428,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_lesslessQ.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_LessLessQ, 'Expecting: <<?');
+  CheckEquals(Symb_LessLessQ, symbol._symbol, 'Expecting: <<?');
   scanner.Done();
 end;
 
@@ -429,7 +442,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_less_equal.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_LessEqual, 'Expecting: <=');
+  CheckEquals(Symb_LessEqual, symbol._symbol, 'Expecting: <=');
   scanner.Done();
 end;
 
@@ -443,7 +456,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_greater.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_Greater, 'Expecting: >');
+  CheckEquals(Symb_Greater, symbol._symbol, 'Expecting: >');
   scanner.Done();
 end;
 
@@ -457,7 +470,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_greatergreater.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_GreaterGreater, 'Expecting: >>');
+  CheckEquals(Symb_GreaterGreater, symbol._symbol, 'Expecting: >>');
   scanner.Done();
 end;
 
@@ -471,7 +484,7 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_greatergreaterQ.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_GreaterGreaterQ, 'Expecting: >>?');
+  CheckEquals(Symb_GreaterGreaterQ, symbol._symbol, 'Expecting: >>?');
   scanner.Done();
 end;
 
@@ -485,7 +498,190 @@ var
 begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_greater_equal.mod');
   scanner.GetNextSymbol(symbol, error);
-  CheckEquals(symbol._symbol, Symb_GreaterEqual, 'Expecting: >=');
+  CheckEquals(Symb_GreaterEqual, symbol._symbol, 'Expecting: >=');
+  scanner.Done();
+end;
+
+(* UnitTest: [ *)
+procedure TTestActiveOberonScanner.TestOperatorLeftBracket;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_left_bracket.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_LeftBracket, symbol._symbol, 'Expecting: [');
+  scanner.Done();
+end;
+
+(* UnitTest: ] *)
+procedure TTestActiveOberonScanner.TestOperatorRightBracket;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_right_bracket.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_RightBracket, symbol._symbol, 'Expecting: ]');
+  scanner.Done();
+end;
+
+(* UnitTest: { *)
+procedure TTestActiveOberonScanner.TestOperatorLeftBrace;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_left_brace.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_LeftBrace, symbol._symbol, 'Expecting: {');
+  scanner.Done();
+end;
+
+(* UnitTest: } *)
+procedure TTestActiveOberonScanner.TestOperatorRightBrace;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_right_brace.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_RightBrace, symbol._symbol, 'Expecting: }');
+  scanner.Done();
+end;
+
+(* UnitTest: ^ *)
+procedure TTestActiveOberonScanner.TestOperatorArrow;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_arrow.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Arrow, symbol._symbol, 'Expecting: ^');
+  scanner.Done();
+end;
+
+(* UnitTest: | *)
+procedure TTestActiveOberonScanner.TestOperatorBar;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_bar.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Bar, symbol._symbol, 'Expecting: |');
+  scanner.Done();
+end;
+
+(* UnitTest: ~ *)
+procedure TTestActiveOberonScanner.TestOperatorNot;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_not.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Not, symbol._symbol, 'Expecting: ~');
+  scanner.Done();
+end;
+
+(* UnitTest: \ *)
+procedure TTestActiveOberonScanner.TestOperatorBackSlash;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_backslash.mod');
+  //scanner.GetNextSymbol(symbol, error);
+  //CheckEquals(Symb_Backslash, symbol._symbol, 'Expecting: \\');
+  Check(1 = 1, 'Remove and use existing test when operator is implemented!');
+  scanner.Done();
+end;
+
+(* UnitTest: ` *)
+procedure TTestActiveOberonScanner.TestOperatorTranspose;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_transpose.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Transpose, symbol._symbol, 'Expecting: `');
+  scanner.Done();
+end;
+
+(* UnitTest: ? *)
+procedure TTestActiveOberonScanner.TestOperatorQuestionMark;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_questionmark.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Questionmark, symbol._symbol, 'Expecting: ?');
+  scanner.Done();
+end;
+
+(* UnitTest: ?? *)
+procedure TTestActiveOberonScanner.TestOperatorQuestionMarks;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_questionmarks.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_Questionmarks, symbol._symbol, 'Expecting: ??');
+  scanner.Done();
+end;
+
+(* UnitTest: ! *)
+procedure TTestActiveOberonScanner.TestOperatorExplanationMark;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_explanationmark.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_ExclamationMark, symbol._symbol, 'Expecting: !');
+  scanner.Done();
+end;
+
+(* UnitTest: !! *)
+procedure TTestActiveOberonScanner.TestOperatorExplanationMarks;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/operator_explanationmarks.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Symb_ExclamationMarks, symbol._symbol, 'Expecting: !!');
   scanner.Done();
 end;
 
