@@ -112,6 +112,9 @@ type
       procedure TestKeywordAddress;
       procedure TestKeywordSize;
       procedure TestKeywordAlias;
+
+      procedure TestIdentifierCapitalLetter;
+      procedure TestIdentifierLetter;
           
   end;
 
@@ -1492,6 +1495,36 @@ begin
   scanner := TScannerObject.Create('bootcompiler/unittests/data/keyword_alias.mod');
   scanner.GetNextSymbol(symbol, error);
   CheckEquals(Symb_Alias, symbol._symbol, 'Expecting: alias');
+  scanner.Done();
+end;
+
+(* UnitTest: literal identifier with capital letter  *)
+procedure TTestActiveOberonScanner.TestIdentifierCapitalLetter;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/literal_capital_letter.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Identifier, symbol._symbol, 'Expecting: Identifier');
+  CheckEquals('Test_123_aBS', symbol._Identifier, 'Expecting: Test_123_aBS');
+  scanner.Done();
+end;
+
+(* UnitTest: literal identifier with letter  *)
+procedure TTestActiveOberonScanner.TestIdentifierLetter;
+var 
+    scanner: TScannerObject;
+    symbol: ActiveOberonScanner.Symbol;
+    error: Boolean;
+
+begin
+  scanner := TScannerObject.Create('bootcompiler/unittests/data/literal_small_letter.mod');
+  scanner.GetNextSymbol(symbol, error);
+  CheckEquals(Identifier, symbol._symbol, 'Expecting: Identifier');
+  CheckEquals('little_var1', symbol._Identifier, 'Expecting: little_var1');
   scanner.Done();
 end;
 

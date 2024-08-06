@@ -31,6 +31,6 @@ begin
 
    scanner.GetNextSymbol(symbol, error);
 
-   Write('Symbol:  '); Writeln(symbol._symbol);
+   Write('Symbol:  '); Writeln(symbol._symbol); Writeln(symbol._Identifier)
 
 end.
