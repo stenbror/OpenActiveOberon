@@ -22,11 +22,13 @@ This will build the Compiler and the test harness. Both binaries ends up in *bin
 
 # Language details
 
+## Reserved keywords
+
 | | | | | | | | |
 |----|-----|-----|-----|-----|-----|------|------|
 | address | alias | array | await | begin | by | cell | cellnet | 
 | case | code | definition | do | div | end | enum | else | 
-| elsif | exit | Eextern | false | for | finally | if | imag |
+| elsif | exit | extern | false | for | finally | if | imag |
 | in | is | import | loop | module | mod | nil | object |
 | of | or | out | operator | pointer | procedure  | port | repeat |
 | record | return | result | self | then | true | to | type | 
@@ -45,13 +47,13 @@ This will build the Compiler and the test harness. Both binaries ends up in *bin
 
 | | | | | | | |
 |----|-----|-----|-----|-----|-----|------|
-| ABS | ADDRESSOF | ALL | ANY | ASH | ASSERT | BOOLEAN | 
-| CAP | CAS | CHAR | CHR | COMPLEX | COMPLEX32 | COMPLEX64 | 
-| COPY | DEC | DECMUL | DIM | ENTIER | ENTIERH | EXCL | 
-| FIRST | FLOAT32 | FLOAT64 | FLOOR | HALT | IM | INC |
-| INCL | INCMUL | INCR | INTEGER | INTEGERSET | LAST | LEN | 
-| LONG |LONGINTEGER | LSH | MAX | MIN | OBJECT | ODD | 
-| RANGE | RE | REAL | RESHAPE | ROL | ROR | ROT | 
-| SET | SET8 | SET16 |SET32 | SET64 | SHL | SHORT | 
-| SHR | SIGNED8 | SIGNED16 | SIGNED32 | SIGNED64 | SIZE | SIZEOF |
-| STEP | SUM | UNSIGNED8 | UNSIGNED16 | UNSIGNED32 | UNSIGNED32 | UNSIGNED64 |
+| abs | addressof | all | any | ash | assert | boolean | 
+| cap | cas | char | chr | complex | complex32 | complex64 | 
+| copy | dec | decmul | dim | entier | entierh | excl | 
+| first | float32 | float64 | floor | halt | im | inc |
+| incl | incmul | incr | integer | integerset | last | len | 
+| long | longinteger | lsh | max | min | odd | 
+| range | re | real | reshape | rol | ror | rot | 
+| set | set8 | set16 | set32 | set64 | shl | short | 
+| shr | signed8 | signed16 | signed32 | signed64 | size | sizeof |
+| step | sum | unsigned8 | unsigned16 | unsigned32 | unsigned32 | unsigned64 |
