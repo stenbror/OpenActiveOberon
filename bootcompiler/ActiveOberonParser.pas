@@ -13,7 +13,8 @@ const
     (* Abstract Syntax Three node types *)
     nk_none = 0; nk_identifier = 1; nk_nil = 2; nk_imag = 3; nk_true = 4; nk_false = 5; nk_self = 6; nk_result = 7; 
     nk_address = 8; nk_address_of = 9; nk_size = 10; nk_size_of = 11; nk_alias = 12; nk_number = 13; nk_character = 14;
-    nk_string = 15;
+    nk_string = 15; nk_unary_plus = 16; nk_unary_minus = 17; nk_unary_not = 18; nk_times = 19; nk_slash = 20; nk_div = 21;
+    nk_mod = 22; nk_and = 23; nk_dot_times = 24; nk_dot_slash = 25; nk_back_slash = 26; nk_times_times = 27; nk_plus_times = 28;
 
 type
 
@@ -56,6 +57,8 @@ type
         (* Expression rules *)
         function ParsePrimaryExpression : TNode;
         function ParseUnaryExpression : TNode;
+        function ParseFactorExpression : TNode;
+        function ParseTermExpression : TNode;
     end;
 
 
@@ -159,8 +162,104 @@ implementation
     (* Unary Expression *)
     function TParserObject.ParseUnaryExpression : TNode;
     begin
-        result := TNode.Create(0, 0, 0, nk_none);
+        result := ParseFactorExpression();
     end;
 
+    (* Factor Expression *)
+    function TParserObject.ParseFactorExpression : TNode;
+    var
+        right: TNode;
+        start, line: Int64;
+    begin
+        start := symbol._start; line := symbol._line;
+        
+        case symbol._symbol of
+            Symb_Plus:
+                        begin
+                            Advance;
+                            right := ParseFactorExpression;
+                            result := TUnaryNode.Create(start, symbol._start, line, nk_unary_plus, right);
+                        end;
+            Symb_Minus: begin
+                            Advance;
+                            right := ParseFactorExpression;
+                            result := TUnaryNode.Create(start, symbol._start, line, nk_unary_minus, right);
+                        end;
+            Symb_Not:   begin
+                            Advance;
+                            right := ParseFactorExpression;
+                            result := TUnaryNode.Create(start, symbol._start, line, nk_unary_not, right);
+                        end;
+            else result := ParseUnaryExpression;
+        end;
+    end;
+
+    (* Parse Term Expression *)
+    function TParserObject.ParseTermExpression : TNode;
+    var
+        left, right: TNode;
+        start, line: Int64;
+    begin
+        start := symbol._start; line := symbol._line;
+        left := ParseFactorExpression;
+
+        while symbol._symbol in [ Symb_Times, Symb_Slash, Symb_Div, Symb_Mod, Symb_And, Symb_DotTimes, Symb_DotSlash, Symb_Backslash, Symb_TimesTimes, Symb_PlusTimes ] do
+            begin
+                case symbol._symbol of
+                    Symb_Times:     begin
+                                        Advance;
+                                        right := ParseFactorExpression;
+                                        left := TBinaryNode.Create(start, symbol._end, line, nk_times, left, right);
+                                    end;
+                    Symb_slash:     begin
+                                        Advance;
+                                        right := ParseFactorExpression;
+                                        left := TBinaryNode.Create(start, symbol._end, line, nk_slash, left, right);
+                                    end;
+                    Symb_Div:       begin
+                                        Advance;
+                                        right := ParseFactorExpression;
+                                        left := TBinaryNode.Create(start, symbol._end, line, nk_div, left, right);
+                                    end;
+                    Symb_Mod:       begin
+                                        Advance;
+                                        right := ParseFactorExpression;
+                                        left := TBinaryNode.Create(start, symbol._end, line, nk_mod, left, right);
+                                    end;
+                    Symb_And:       begin
+                                        Advance;
+                                        right := ParseFactorExpression;
+                                        left := TBinaryNode.Create(start, symbol._end, line, nk_and, left, right);
+                                    end;
+                    Symb_DotTimes:  begin
+                                        Advance;
+                                        right := ParseFactorExpression;
+                                        left := TBinaryNode.Create(start, symbol._end, line, nk_dot_times, left, right);
+                                    end;
+                    Symb_DotSlash:  begin
+                                        Advance;
+                                        right := ParseFactorExpression;
+                                        left := TBinaryNode.Create(start, symbol._end, line, nk_dot_slash, left, right);
+                                    end;
+                    Symb_BackSlash: begin
+                                        Advance;
+                                        right := ParseFactorExpression;
+                                        left := TBinaryNode.Create(start, symbol._end, line, nk_back_slash, left, right);
+                                    end;
+                    Symb_TimesTimes:begin
+                                        Advance;
+                                        right := ParseFactorExpression;
+                                        left := TBinaryNode.Create(start, symbol._end, line, nk_times_times, left, right);
+                                    end;
+                    Symb_PlusTimes:begin
+                                        Advance;
+                                        right := ParseFactorExpression;
+                                        left := TBinaryNode.Create(start, symbol._end, line, nk_plus_times, left, right);
+                                    end;
+                end;
+            end;
+
+        result := left;
+    end;
 
 end.
