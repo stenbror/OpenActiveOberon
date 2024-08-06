@@ -6,9 +6,9 @@ uses
    crt, ActiveOberonScanner, ActiveOberonParser;
 
    var 
-      scanner: TScannerObject;
+      parser: TParserObject;
       symbol: ActiveOberonScanner.Symbol;
-      error: Boolean;
+
 
 begin
 
@@ -21,16 +21,6 @@ begin
    Writeln('');
 
 
-   (* Test code . Temporary *)
-   scanner := TScannerObject.Create('/home/stenbror/OpenActiveOberon/bin/test.pas');
-
-   if scanner = nil then Writeln('NIL!'); 
-   scanner.GetNextSymbol(symbol, error);
-
-   Write('Symbol:  '); Writeln(symbol._symbol);
-
-   scanner.GetNextSymbol(symbol, error);
-
-   Write('Symbol:  '); Writeln(symbol._symbol); Writeln(symbol._Identifier)
+   parser := TParserObject.Create('/home/stenbror/OpenActiveOberon/bin/test.pas');
 
 end.

@@ -197,7 +197,7 @@ implementation
     (* Get next symbol for parser *)
     procedure TScannerObject.GetNextSymbol(var symbol: Symbol; var error: Boolean);
     VAR 
-        s, token: Int64;
+        s: Int64;
         text: string;
 
     begin
