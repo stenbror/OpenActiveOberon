@@ -8,6 +8,8 @@ uses
    var 
       parser: TParserObject;
       symbol: ActiveOberonScanner.Symbol;
+      res: TNode;
+      node: ActiveOberonParser.TSyntaxNode;
 
 
 begin
@@ -23,5 +25,8 @@ begin
 
    parser := TParserObject.Create('/home/stenbror/OpenActiveOberon/bin/test.pas');
    parser.Advance;
+   res := parser.ParseTermExpression;
+
+   node := TSyntaxNode.Create(symb_none);
 
 end.

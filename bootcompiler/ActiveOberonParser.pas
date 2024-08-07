@@ -6,7 +6,7 @@ unit ActiveOberonParser;
 interface
 
 uses
-    ActiveOberonScanner;
+    SysUtils, ActiveOberonScanner;
 
 const
 
@@ -21,6 +21,50 @@ type
     // Abstract Syntax Tree nodes /////////////////////////////////////////////////////////////////
 
     NodeKind = Int64;
+
+    TSyntaxNodeClass = class of TSyntaxNode;
+
+    TSyntaxNode = class
+        private
+            _col, _line: Int64;
+            _kind: NodeKind;
+            _parent: TSyntaxNode;
+            _childNodes: specialize TArray<TSyntaxNode>;
+            _hasChildren: Boolean;
+            _fileName: string;
+
+
+        public
+            constructor Create(nodeKind: NodeKind);
+            destructor Destroy; override;
+            function Clone: TSyntaxNode; virtual;
+
+            function AddChild(node: TSyntaxNode) : TSyntaxNode; overload;
+            procedure DeleteChild(node: TSyntaxNode);
+            procedure ExtractChild(node: TSyntaxNode);
+            function FindChild(kind: NodeKind) : TSyntaxNode; overload;
+
+
+            property Kind: Int64 read _kind;
+            property Col: Int64 read _col write _col;
+            property Line: Int64 read _line write _line;
+            property Parent: TSyntaxNode read _parent;
+            property ChildNodes: specialize TArray<TSyntaxNode> read _childNodes;
+            property HasChildNodes: Boolean read _hasChildren;
+            property FileName: string read _fileName write _fileName;
+    end;
+
+
+
+
+
+
+
+
+
+
+
+
 
     TNode = class
         _startPos, _endPos: Int64;
@@ -63,6 +107,87 @@ type
 
 
 implementation
+
+
+    // TSyntaxError ///////////////////////////////////////////////////////////////////////////////
+
+    function TSyntaxNode.AddChild(node: TSyntaxNode): TSyntaxNode;
+    begin
+        Assert(Assigned(node));
+
+        SetLength(_childNodes, Length(_childNodes) + 1);
+        _childNodes[Length(_childNodes) - 1] := node;
+
+        node._parent := Self;
+
+        Result := node;
+    end;
+
+    function TSyntaxNode.Clone: TSyntaxNode;
+        var
+            i: Int64;
+        begin
+            Result := TSyntaxNodeClass(Self.ClassType).Create(_kind);
+
+            SetLength(Result._childNodes, Length(_childNodes));
+            for i := 0 to High(_childNodes) do
+            begin
+                Result._childNodes[i] := _childNodes[i].Clone;
+                Result._childNodes[i]._parent := Result;
+            end;
+
+            //Result.FAttributes := Copy(FAttributes);
+            //Result.AssignPositionFrom(Self);
+    end;
+
+    constructor TSyntaxNode.Create(nodeKind: NodeKind);
+    begin
+        inherited Create;
+        _kind := nodeKind;
+    end;
+
+    procedure TSyntaxNode.ExtractChild(node: TSyntaxNode);
+    var
+        i: Int64;
+    begin
+        for i := 0 to High(_childNodes) do
+            if _childNodes[i] = node then
+            begin
+            if i < High(_childNodes) then
+                Move(_childNodes[i + 1], _childNodes[i], SizeOf(TSyntaxNode) * (Length(_childNodes) - i - 1));
+            SetLength(_childNodes, High(_childNodes));
+            Break;
+            end;
+    end;
+
+    procedure TSyntaxNode.DeleteChild(node: TSyntaxNode);
+    begin
+        ExtractChild(node);
+        node.Free;
+    end;
+
+    destructor TSyntaxNode.Destroy;
+    var
+        i: Int64;
+    begin
+        for i := 0 to High(_childNodes) do
+            FreeAndNil(_childNodes[i]);
+        inherited;
+    end;
+
+    function TSyntaxNode.FindChild(kind: NodeKind): TSyntaxNode;
+    var
+        i: Int64;
+    begin
+        for i := 0 to High(_childNodes) do
+            if _childNodes[i]._kind = kind then
+            Exit(_childNodes[i]);
+        Result := nil;
+    end;
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     constructor TNode.Create(startPos, endPos, line: Int64; kind: NodeKind);
     begin
@@ -170,6 +295,7 @@ implementation
     var
         right: TNode;
         start, line: Int64;
+        node: TSyntaxNode;
     begin
         start := symbol._start; line := symbol._line;
         
