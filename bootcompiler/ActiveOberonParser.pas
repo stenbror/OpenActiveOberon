@@ -61,6 +61,7 @@ type
             constructor Create(nodeKind: NodeKind);
             destructor Destroy; override;
             function Clone: TSyntaxNode; virtual;
+            procedure AssignPositionFrom(const node: TSyntaxNode);
 
             function AddChild(node: TSyntaxNode) : TSyntaxNode; overload;
             procedure DeleteChild(node: TSyntaxNode);
@@ -218,8 +219,8 @@ implementation
                 Result._childNodes[i]._parent := Result;
             end;
 
-            //Result.FAttributes := Copy(FAttributes);
-            //Result.AssignPositionFrom(Self);
+            Result._attributes := Copy(_attributes);
+            Result.AssignPositionFrom(Self);
     end;
 
     constructor TSyntaxNode.Create(nodeKind: NodeKind);
@@ -265,6 +266,13 @@ implementation
             if _childNodes[i]._kind = kind then
             Exit(_childNodes[i]);
         Result := nil;
+    end;
+
+    procedure TSyntaxNode.AssignPositionFrom(const Node: TSyntaxNode);
+    begin
+        _col := node._col;
+        _line := node._line;
+        _fileName := node._fileName;
     end;
 
     function TCompoundSyntaxNode.Clone: TSyntaxNode;
