@@ -54,7 +54,38 @@ type
             property FileName: string read _fileName write _fileName;
     end;
 
+    TCompoundSyntaxNode = class(TSyntaxNode)
+        private
+            _endCol, _endLine: Int64;
 
+        public
+            function Clone: TSyntaxNode; override;
+
+            property EndCol: Int64 read _endCol write _endCol;
+            property EndLine: Int64 read _endLine write _endLine;
+
+    end;
+
+    TValuedSyntaxNode = class(TSyntaxNode)
+        private
+            _value: string;
+
+        public
+            function Clone: TSyntaxNode; override;
+
+            property Value: string read _value write _value;
+    end;
+
+    TCommentNode = class(TSyntaxNode)
+        private
+            _text: string;
+
+        public
+            function Clone: TSyntaxNode; override;
+
+            property Text: string read _text write _text;
+            
+    end;
 
 
 
@@ -88,6 +119,9 @@ type
         constructor Create(startPos, endPos, line: Int64; kind: NodeKind; left, right: TNode); 
     end;
 
+
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     TParserObject = class
@@ -110,6 +144,8 @@ implementation
 
 
     // TSyntaxError ///////////////////////////////////////////////////////////////////////////////
+
+    { TSyntaxNode }
 
     function TSyntaxNode.AddChild(node: TSyntaxNode): TSyntaxNode;
     begin
@@ -183,6 +219,35 @@ implementation
             if _childNodes[i]._kind = kind then
             Exit(_childNodes[i]);
         Result := nil;
+    end;
+
+
+    { TCompoundSyntaxNode }
+
+    function TCompoundSyntaxNode.Clone: TSyntaxNode;
+    begin;
+        Result := inherited;
+
+        TCompoundSyntaxNode(Result).EndLine := Self.EndLine;
+        TCompoundSyntaxNode(Result).EndCol := Self.EndCol;
+    end;
+
+    { TValuedSyntaxNode }
+
+    function TValuedSyntaxNode.Clone: TSyntaxNode;
+    begin;
+        Result := inherited;
+
+        TValuedSyntaxNode(Result).Value := Self.Value;
+    end; 
+
+    { TCommentSyntaxNode }
+
+    function TCommentNode.Clone: TSyntaxNode;
+    begin;
+        Result := inherited;
+
+        TCommentNode(Result).Text := Self.Text;
     end;
 
 

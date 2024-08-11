@@ -3,7 +3,7 @@
 echo " Building compiler binary! "
 
 rm bootcompiler/*.ppu
-fpc -Fu"bootcompiler" bootcompiler/aoc.pas -obin/aoc_bootstrap
+fpc -Fu"bootcompiler" bootcompiler/aoc.pas -obin/aoc_bootstrap -B
 
 echo " Executing UnitTests! "
 
