@@ -8,7 +8,7 @@ uses
    var 
       parser: TParserObject;
       symbol: ActiveOberonScanner.Symbol;
-      res: TNode;
+      res: TSyntaxNode;
       node: ActiveOberonParser.TSyntaxNode;
 
 

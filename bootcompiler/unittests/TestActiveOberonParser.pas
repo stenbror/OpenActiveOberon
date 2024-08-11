@@ -30,7 +30,7 @@ uses
     procedure TTestActiveOberonParser.TestTermExpressionTimes;
     var 
         parser: TParserObject;
-        res: TNode;
+        res: TSyntaxNode;
 
     begin
         parser := TParserObject.Create('bootcompiler/unittests/data/parse_term_single_times.mod');
