@@ -20,6 +20,20 @@ type
 
     // Abstract Syntax Tree nodes /////////////////////////////////////////////////////////////////
 
+    EParserException = class(Exception)
+        strict private
+            _fileName: string;
+            _line, _col: Int64;
+
+        public
+            constructor Create(line, col: Int64; const fileName, msg: string); reintroduce;
+
+            property FileName: string read _fileName;
+            property Line: Int64 read _line;
+            property Col: Int64 read _col;
+
+    end;
+
     NodeKind = Int64;
 
     TSyntaxNodeClass = class of TSyntaxNode;
@@ -87,9 +101,7 @@ type
             
     end;
 
-
-
-
+    
 
 
 
@@ -221,9 +233,6 @@ implementation
         Result := nil;
     end;
 
-
-    { TCompoundSyntaxNode }
-
     function TCompoundSyntaxNode.Clone: TSyntaxNode;
     begin;
         Result := inherited;
@@ -250,6 +259,16 @@ implementation
         TCommentNode(Result).Text := Self.Text;
     end;
 
+    { EParserException }
+
+    constructor EParserException.Create(line, col: Int64; const fileName, msg: string);
+    begin;
+        inherited Create(msg);
+
+        _fileName := fileName;
+        _line := line;
+        _col := col;
+    end;
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
