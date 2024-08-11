@@ -6,7 +6,7 @@ unit ActiveOberonParser;
 interface
 
 uses
-    SysUtils, ActiveOberonScanner;
+    SysUtils, Generics.Collections, ActiveOberonScanner;
 
 const
 
@@ -36,6 +36,11 @@ type
 
     NodeKind = Int64;
 
+    TAttributeName = specialize TArray<string>;
+
+    TAttributeEntry = specialize TPair<TAttributeName, string>;
+    PAttributeEntry = ^TAttributeEntry;
+
     TSyntaxNodeClass = class of TSyntaxNode;
 
     TSyntaxNode = class
@@ -44,9 +49,13 @@ type
             _kind: NodeKind;
             _parent: TSyntaxNode;
             _childNodes: specialize TArray<TSyntaxNode>;
+            _attributes: specialize TArray<TAttributeEntry>;
             _hasChildren: Boolean;
             _fileName: string;
 
+        
+            function TryGetAttributeEntry(const key: TAttributeName; var attributeEntry: PAttributeEntry): Boolean;
+            function GetHasAttributes: Boolean;
 
         public
             constructor Create(nodeKind: NodeKind);
@@ -58,12 +67,17 @@ type
             procedure ExtractChild(node: TSyntaxNode);
             function FindChild(kind: NodeKind) : TSyntaxNode; overload;
 
+            function GetAttribute(const key: TAttributeName): string;
+            function HasAttribute(const key: TAttributeName): Boolean;
+            procedure SetAttribute(const key: TAttributeName; const value: string);
+            procedure ClearAttributes;
 
             property Kind: Int64 read _kind;
             property Col: Int64 read _col write _col;
             property Line: Int64 read _line write _line;
             property Parent: TSyntaxNode read _parent;
             property ChildNodes: specialize TArray<TSyntaxNode> read _childNodes;
+            property Attributes: specialize TArray<TAttributeEntry> read _attributes;
             property HasChildNodes: Boolean read _hasChildren;
             property FileName: string read _fileName write _fileName;
     end;
@@ -132,6 +146,63 @@ implementation
         node._parent := Self;
 
         Result := node;
+    end;
+
+    procedure TSyntaxNode.SetAttribute(const key: TAttributeName; const value: string);
+    var
+        attributeEntry: PAttributeEntry;
+        len: Int64;
+    begin
+        if not TryGetAttributeEntry(key, attributeEntry) then
+        begin
+            len := Length(_attributes);
+            SetLength(_attributes, len + 1);
+            attributeEntry := @_attributes[len];
+            AttributeEntry^.key := key;
+        end;
+        AttributeEntry^.Value := value;
+    end; 
+
+    function TSyntaxNode.TryGetAttributeEntry(const key: TAttributeName; var attributeEntry: PAttributeEntry): boolean;
+        var
+            i: Int64;
+        begin
+            for i := 0 to High(_attributes) do
+                if _attributes[i].Key = Key then
+                begin
+                attributeEntry := @_attributes[i];
+                Exit(True);
+            end;
+
+        Result := False;
+    end;
+
+    function TSyntaxNode.GetAttribute(const key: TAttributeName): string;
+    var
+        attributeEntry: PAttributeEntry;
+    begin
+        if TryGetAttributeEntry(key, attributeEntry) then
+            Result := attributeEntry^.Value
+        else
+            Result := '';
+    end;
+    
+
+    function TSyntaxNode.GetHasAttributes: Boolean;
+    begin
+        Result := Length(_attributes) > 0;
+    end;
+    
+    procedure TSyntaxNode.ClearAttributes;
+    begin
+        SetLength(_attributes, 0);
+    end;
+
+    function TSyntaxNode.HasAttribute(const key: TAttributeName): Boolean;
+    var
+        attributeEntry: PAttributeEntry;
+    begin
+        Result := TryGetAttributeEntry(key, attributeEntry);
     end;
 
     function TSyntaxNode.Clone: TSyntaxNode;
